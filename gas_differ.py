@@ -1,5 +1,4 @@
 import time
-
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -12,9 +11,6 @@ wait = WebDriverWait(DRIVER, 5)
 
 DRIVER.get("https://www.autocentrum.pl/stacje-paliw/pkn-orlen/pkn-orlen-tadeusza-kosciuszki-35-zory")
 
-#SEARCH = DRIVER.find_element_by_class_name("fuel-header")
-#SEARCH.send_keys("95")
-#SEARCH.send_keys(Keys.RETURN)
 
 def accept_cookies():
     '''
@@ -35,30 +31,33 @@ def look_for_gas():
     3.print for test
     '''
     find_available_fules = DRIVER.find_elements_by_css_selector(".fuel-header")
-    for cos in find_available_fules:
-        fuels = cos.text
-    return fuels
+    return find_available_fules
 
 
-def look_for_gas_prices(tak):
+def look_for_gas_prices():
     '''
     1.check prices of fuels on the websites
     2.save it to vars
     3.print for test
     '''
-    find_available_fules = DRIVER.find_elements_by_css_selector(".price")
-    for cos in find_available_fules:
-        fuels_cost = cos.text
-    return fuels_cost
+    find_available_pricing = DRIVER.find_elements_by_css_selector(".price")
+    return find_available_pricing
 
 
-def join_gas_with_price():
-    print("ok")
-
+def join_gas_with_price(find_available_fuels, find_available_pricing):
+    '''
+    1.take values from above functions
+    2.iterate over them
+    3.find list and save them to vars
+    4. join them together
+    '''
+    for found_fuels in find_available_fuels:
+        for found_pricing in find_available_pricing:
+            print(found_pricing.text, found_fuels.text)
 
 if __name__ == "__main__":
     accept_cookies()
-    look_for_gas()
-    look_for_gas_prices()
-    join_gas_with_price()
-
+    find_available_fuels = look_for_gas()
+    find_available_pricing = look_for_gas_prices()
+    join_gas_with_price(find_available_fuels, find_available_pricing)
+    exit()
