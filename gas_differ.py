@@ -30,8 +30,10 @@ def look_for_gas():
     2.save it to vars
     3.print for test
     '''
-    find_available_fules = DRIVER.find_elements_by_css_selector(".fuel-header")
-    return find_available_fules
+    find_available_fuels = DRIVER.find_elements_by_css_selector(".fuel-header")
+    for found_fuels in find_available_fuels:
+        fou = [found_fuels.text]
+        return fou
 
 
 def look_for_gas_prices():
@@ -41,23 +43,23 @@ def look_for_gas_prices():
     3.print for test
     '''
     find_available_pricing = DRIVER.find_elements_by_css_selector(".price")
-    return find_available_pricing
+    for found_fuels in find_available_pricing:
+        fou2 = [found_fuels.text]
+        return fou2
 
-
-def join_gas_with_price(find_available_fuels, find_available_pricing):
+def join_gas_with_price(fou, fou2):
     '''
     1.take values from above functions
     2.iterate over them
     3.find list and save them to vars
     4. join them together
     '''
-    for found_fuels in find_available_fuels:
-        for found_pricing in find_available_pricing:
-            print(found_pricing.text, found_fuels.text)
+    print(fou + fou2)
+
 
 if __name__ == "__main__":
     accept_cookies()
-    find_available_fuels = look_for_gas()
-    find_available_pricing = look_for_gas_prices()
-    join_gas_with_price(find_available_fuels, find_available_pricing)
-    exit()
+    fou = look_for_gas()
+    fou2 = look_for_gas_prices()
+    join_gas_with_price(fou, fou2)
+    DRIVER.close()
